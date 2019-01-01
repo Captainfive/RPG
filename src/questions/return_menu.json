@@ -1,0 +1,5 @@
+{
+    "message": "Voulez vous revenir au Menu Principal ?",
+    "type": "confirm",
+    "name": "return_menu"
+}

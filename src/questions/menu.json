@@ -1,0 +1,11 @@
+{
+    "message": "Menu Principal",
+    "type": "list",
+    "name": "menu",
+    "choices": [
+        "personnages",
+        "inventaire",
+        "shop",
+        "option"
+    ]
+}

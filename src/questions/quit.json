@@ -1,0 +1,5 @@
+{
+    "message": "Voulez vous quittez",
+    "type": "confirm",
+    "name": "quit"
+}

@@ -1,0 +1,11 @@
+    {
+        "message": "Bienvenue dans mon rpg \n",
+        "type": "list",
+        "name": "starter",
+        "choices": [
+            "Nouvelle partie",
+            "Charger partie",
+            "Quitter"
+        ],
+        "default": 0
+    }
