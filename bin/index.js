@@ -27,7 +27,7 @@ async function main() {
     if (response.starter === "Nouvelle partie") {
 
         const db = await sqlite.open(join(ROOT_DIR, "databases", "config.sqlite"));
-        const sql = await readFile(join(ROOT_DIR, "scripts", "config.sql"), { encoding: "utf8" });
+        const sql = await readFile(join(ROOT_DIR, "databases", "config.sql"), { encoding: "utf8" });
 
         await db.exec(sql);
 
