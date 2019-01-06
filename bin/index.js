@@ -6,17 +6,25 @@ const { join } = require("path");
 const inquirer = require("inquirer");
 const sqlite = require("sqlite");
 
+// ROOT-PATH
+const ROOT_DIR = join(__dirname, "..");
+
+// QUESTIONS SHORTCUT
+const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
+
+// DATABASES SHORTCUT
+const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
+
 // CONSTANTS
 const FILE_INDENTATION = 4;
-const ROOT_DIR = join(__dirname, "..");
-const START_QUESTION = require(join(ROOT_DIR, "src", "questions", "starter.json"));
-const CREATE_WORLD = require(join(ROOT_DIR, "src", "questions", "createworld.json"));
-const QUIT_GAME = require(join(ROOT_DIR, "src", "questions", "quit.json"));
-const MENU = require(join(ROOT_DIR, "src", "questions", "menu.json"));
-const OPTION_SAVE = require(join(ROOT_DIR, "src", "questions", "option_save.json"));
-const RETURN_MENU = require(join(ROOT_DIR, "src", "questions", "return_menu.json"));
-const SELECT_STATS = require(join(ROOT_DIR, "src", "questions", "personnages.json"));
-const MENU_RETURN = require(join(ROOT_DIR, "src", "questions", "menu_return.json"));
+const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
+const CREATE_WORLD = require(join(SHORTCUT_QUESTIONS, "createworld.json"));
+const QUIT_GAME = require(join(SHORTCUT_QUESTIONS, "quit.json"));
+const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
+const OPTION_SAVE = require(join(SHORTCUT_QUESTIONS, "option_save.json"));
+const RETURN_MENU = require(join(SHORTCUT_QUESTIONS, "return_menu.json"));
+const SELECT_STATS = require(join(SHORTCUT_QUESTIONS, "personnages.json"));
+const MENU_RETURN = require(join(SHORTCUT_QUESTIONS, "menu_return.json"));
 
 async function main() {
     await console.clear();
@@ -26,8 +34,8 @@ async function main() {
 
     if (response.starter === "Nouvelle partie") {
 
-        const db = await sqlite.open(join(ROOT_DIR, "databases", "config.sqlite"));
-        const sql = await readFile(join(ROOT_DIR, "databases", "config.sql"), { encoding: "utf8" });
+        const db = await sqlite.open(join(SHORTCUT_DATABASES, "config.sqlite"));
+        const sql = await readFile(join(SHORTCUT_DATABASES, "config.sql"), { encoding: "utf8" });
 
         await db.exec(sql);
 
