@@ -1,0 +1,9 @@
+{
+    "type": "list",
+    "name": "personnages",
+    "choices": [
+        "Statistiques",
+        "Sorts",
+        "retour"
+    ]
+}
