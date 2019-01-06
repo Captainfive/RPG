@@ -15,12 +15,17 @@ const QUIT_GAME = require(join(ROOT_DIR, "src", "questions", "quit.json"));
 const MENU = require(join(ROOT_DIR, "src", "questions", "menu.json"));
 const OPTION_SAVE = require(join(ROOT_DIR, "src", "questions", "option_save.json"));
 const RETURN_MENU = require(join(ROOT_DIR, "src", "questions", "return_menu.json"));
+const SELECT_STATS = require(join(ROOT_DIR, "src", "questions", "personnages.json"));
+const MENU_RETURN = require(join(ROOT_DIR, "src", "questions", "menu_return.json"));
 
 async function main() {
     await console.clear();
+
     const response = await inquirer.prompt(START_QUESTION);
     console.clear();
+
     if (response.starter === "Nouvelle partie") {
+
         const db = await sqlite.open(join(ROOT_DIR, "databases", "config.sqlite"));
         const sql = await readFile(join(ROOT_DIR, "scripts", "config.sql"), { encoding: "utf8" });
 
@@ -34,65 +39,73 @@ async function main() {
         VALUES
         ("${response.nom_partie}");`);
 
-        const answer = await inquirer.prompt(MENU);
-        console.clear();
+        for (;;) {
 
-        if (answer.menu === "personnage") {
-
-        };
-
-        if (answer.menu === "inventaire") {
-
-        };
-
-        if (answer.menu === "shop") {
-
-        };
-
-        if (answer.menu === "option") {
-            const response = await inquirer.prompt(OPTION_SAVE);
+            const answer = await inquirer.prompt(MENU);
             console.clear();
 
-            if (response.options === "Sauvegarder") {
-            };
-
-            if (response.options === "Quitter") {
-                const reponse = await inquirer.prompt(QUIT_GAME);
+            if (answer.menu === "personnages") {
+                const response = await inquirer.prompt(SELECT_STATS);
                 console.clear();
 
-                if (reponse.quit === true) {
-                    return
-                }
-                else {
-                    const response = await inquirer.prompt(OPTION_SAVE);
+                if (response.personnages === "Statistiques") {
+                    console.log("statistiques");
+                    
+                    const answer = await inquirer.prompt(MENU_RETURN);
+                    console.clear();
+                };
+
+                if (response.personnages === "Sorts") {
+                    console.log("sorts");
+                };
+
+                if (response.personnages === "retour") {
+                    continue;
+                };
+            };
+
+            if (answer.menu === "inventaire") {
+
+            };
+
+            if (answer.menu === "shop") {
+
+            };
+
+            if (answer.menu === "option") {
+                const response = await inquirer.prompt(OPTION_SAVE);
+                console.clear();
+
+                if (response.options === "Sauvegarder") {
+                };
+
+                if (response.options === "Quitter") {
+                    const reponse = await inquirer.prompt(QUIT_GAME);
                     console.clear();
 
-                    if (response.options === "Sauvegarder") {
-                    };
+                    if (reponse.quit === true) {
+                        break;
+                    }
+                    else {
+                        continue;
+                    }
+                };
 
-                    if (response.options === "Quitter") {
-                        return
-                    };
-
-                    if (response.options === "Retour") {
-                    };
-                }
+                if (response.options === "Retour") {
+                };
             };
+        }
 
-            if (response.options === "Retour") {
-            };
-        };
-    }
+        if (response.starter === "Charger partie") {
+            console.clear();
+            console.log("\n");
+            console.log("quelle partie voulez vous chargez ?");
+        }
 
-    if (response.starter === "Charger partie") {
-        console.clear();
-        console.log("\n");
-        console.log("quelle partie voulez vous chargez ?");
-    }
-
-    if (response.starter === "Quitter") {
-        console.clear();
-        console.log("\n");
-        console.log("Adieu Camarade");
+        if (response.starter === "Quitter") {
+            console.clear();
+            console.log("\n");
+            console.log("Adieu Camarade");
+        }
     }
 } main().catch(console.error);
