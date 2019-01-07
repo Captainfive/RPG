@@ -1,11 +1,49 @@
 {
-    "message": "Menu Principal",
-    "type": "list",
-    "name": "menu",
-    "choices": [
-        "personnages",
-        "inventaire",
-        "shop",
-        "option"
-    ]
+    "menu": {
+        "message": "Menu Principal",
+        "type": "list",
+        "name": "menu",
+        "choices": [
+            "personnages",
+            "inventaire",
+            "shop",
+            "option"
+        ]
+    },
+    "menu_return": {
+        "type": "list",
+        "name": "menu_return",
+        "choices": [
+            "Menu Principal"
+        ]
+    },
+    "return_menu": {
+        "message": "Voulez vous revenir au Menu Principal ?",
+        "type": "confirm",
+        "name": "return_menu"
+    },
+    "personnage": {
+        "type": "list",
+        "name": "personnage",
+        "choices": [
+            "Stats",
+            "Sorts",
+            "retour"
+        ]
+    },
+    "options": {
+        "message": "options : \n",
+        "type": "list",
+        "name": "options",
+        "choices": [
+            "Sauvegarder",
+            "Quitter",
+            "Retour"
+        ]
+    },
+    "quit": {
+        "message": "Voulez vous quittez",
+        "type": "confirm",
+        "name": "quit"
+    }
 }
