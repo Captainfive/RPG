@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Require Node.js Dependencies
 const { readFile } = require("fs").promises;
 const { join } = require("path");
