@@ -1,4 +1,5 @@
-    {
+{
+    "starter": {
         "message": "Bienvenue dans mon rpg \n",
         "type": "list",
         "name": "starter",
@@ -6,6 +7,21 @@
             "Nouvelle partie",
             "Charger partie",
             "Quitter"
-        ],
-        "default": 0
+        ]
+    },
+    "nom_partie": {
+        "message": "Nomme ta partie",
+        "type": "input",
+        "name": "nom_partie"
+    },
+    "select_class": {
+        "message": "Selectionne une classe pour plus d'infos !",
+        "type": "list",
+        "name": "select_class",
+        "choices": [
+            "WARRIOR",
+            "ROGUE",
+            "WIZARD"
+        ]
     }
+}
