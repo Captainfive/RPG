@@ -16,20 +16,11 @@ const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
 const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 
 // CONSTANTS
-const FILE_INDENTATION = 4;
 const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
-const CREATE_WORLD = require(join(SHORTCUT_QUESTIONS, "createworld.json"));
-const QUIT_GAME = require(join(SHORTCUT_QUESTIONS, "quit.json"));
 const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
-const OPTION_SAVE = require(join(SHORTCUT_QUESTIONS, "option_save.json"));
-const RETURN_MENU = require(join(SHORTCUT_QUESTIONS, "return_menu.json"));
-const SELECT_STATS = require(join(SHORTCUT_QUESTIONS, "personnages.json"));
-const MENU_RETURN = require(join(SHORTCUT_QUESTIONS, "menu_return.json"));
 
 async function main() {
-    await console.clear();
-
-    const response = await inquirer.prompt(START_QUESTION);
+    const response = await inquirer.prompt([START_QUESTION.starter]);
     console.clear();
 
     if (response.starter === "Nouvelle partie") {
@@ -39,7 +30,7 @@ async function main() {
 
         await db.exec(sql);
 
-        const response = await inquirer.prompt(CREATE_WORLD);
+        const response = await inquirer.prompt([START_QUESTION.nom_partie]);
         console.clear();
 
         await db.exec(`INSERT INTO "world_name"
@@ -49,17 +40,17 @@ async function main() {
 
         for (;;) {
 
-            const answer = await inquirer.prompt(MENU);
+            const answer = await inquirer.prompt([MENU.menu]);
             console.clear();
 
             if (answer.menu === "personnages") {
-                const response = await inquirer.prompt(SELECT_STATS);
+                const response = await inquirer.prompt([MENU.personnage]);
                 console.clear();
 
-                if (response.personnages === "Statistiques") {
-                    console.log("statistiques");
+                if (response.personnages === "Stats") {
+                    console.log("stats");
                     
-                    const answer = await inquirer.prompt(MENU_RETURN);
+                    const answer = await inquirer.prompt([MENU.return_menu]);
                     console.clear();
                 };
 
@@ -81,14 +72,14 @@ async function main() {
             };
 
             if (answer.menu === "option") {
-                const response = await inquirer.prompt(OPTION_SAVE);
+                const response = await inquirer.prompt([MENU.options]);
                 console.clear();
 
                 if (response.options === "Sauvegarder") {
                 };
 
                 if (response.options === "Quitter") {
-                    const reponse = await inquirer.prompt(QUIT_GAME);
+                    const reponse = await inquirer.prompt([MENU.quit]);
                     console.clear();
 
                     if (reponse.quit === true) {
