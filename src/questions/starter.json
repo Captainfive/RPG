@@ -9,13 +9,8 @@
             "Quitter"
         ]
     },
-    "nom_partie": {
-        "message": "Nomme ta partie",
-        "type": "input",
-        "name": "nom_partie"
-    },
     "select_class": {
-        "message": "Selectionne une classe pour plus d'infos !",
+        "message": "Selectionne une classe",
         "type": "list",
         "name": "select_class",
         "choices": [
@@ -23,5 +18,28 @@
             "ROGUE",
             "WIZARD"
         ]
+    },
+    "stats_class": {
+        "type": "list",
+        "name": "stats_class",
+        "choices": [
+            "Statistiques",
+            "Sorts",
+            "Choisir ce héro",
+            "Retour"
+        ]
+    },
+    "return": {
+        "message": "\n",
+        "type": "list",
+        "name": "return",
+        "choices": [
+            "Retour"
+        ]
+    },
+    "nom_partie": {
+        "message": "Nomme ta partie",
+        "type": "input",
+        "name": "nom_partie"
     }
 }
