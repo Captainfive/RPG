@@ -3,6 +3,11 @@ CREATE TABLE IF NOT EXISTS "world_name" (
     "name" VARCHAR(60)
 );
 
+-- adding Actual_gaming_class
+CREATE TABLE IF NOT EXISTS "actual_gaming_class" (
+    "class_name" VARCHAR(60)
+);
+
 -- ::: CLASSES :::
 
 -- WARRIOR !
@@ -22,13 +27,14 @@ CREATE TABLE IF NOT EXISTS "warrior" (
     "life_points" INTEGER NOT NULL,
     "mana_points" INTEGER NOT NULL,
     "damage_points" INTEGER NOT NULL,
-    "block_point" INTEGER NOT NULL
+    "block_points" INTEGER NOT NULL,
+    "spell_damage" INTEGER
 );
 
     -- pushing in warrior table
-INSERT INTO warrior (name, argent, tête, torse, mains, jambes, pieds, heal, iron_fist, dash, life_points, mana_points, damage_points, block_point)
+INSERT INTO warrior (name, argent, tête, torse, mains, jambes, pieds, heal, iron_fist, dash, life_points, mana_points, damage_points, block_points, spell_damage)
  VALUES
- (?, "500", ?, ?, ?, ?, ?, "120", "350", "180", "750", "350", "120", "180");
+ (?, "500", ?, ?, ?, ?, ?, "120", "350", "180", "750", "350", "120", "180", "0");
 
 -- WIZARD !
 
@@ -47,12 +53,12 @@ CREATE TABLE IF NOT EXISTS "wizard" (
     "life_points" INTEGER NOT NULL,
     "mana_points" INTEGER NOT NULL,
     "damage_points" INTEGER NOT NULL,
-    "block_point" INTEGER NOT NULL,
-    "spell_damage" INTEGER NOT NULL
+    "block_points" INTEGER NOT NULL,
+    "spell_damage" INTEGER
 );
 
     -- pushing in wizard table
-INSERT INTO wizard (name, argent, tête, torse, mains, jambes, pieds, barrier, frostlin, floor_is_lava, life_points, mana_points, damage_points, block_point, spell_damage)
+INSERT INTO wizard (name, argent, tête, torse, mains, jambes, pieds, barrier, frostlin, floor_is_lava, life_points, mana_points, damage_points, block_points, spell_damage)
  VALUES
  (?, "500", ?, ?, ?, ?, ?, "350", "700", "450", "550", "650", "175", "0", "150");
 
@@ -73,13 +79,14 @@ CREATE TABLE IF NOT EXISTS "rogue" (
     "life_points" INTEGER NOT NULL,
     "mana_points" INTEGER NOT NULL,
     "damage_points" INTEGER NOT NULL,
-    "block_point" INTEGER NOT NULL
+    "block_points" INTEGER NOT NULL,
+    "spell_damage" INTEGER
 );
 
     -- pushing in rogue table
-INSERT INTO rogue (name, argent, tête, torse, mains, jambes, pieds, dodge, execute, fan_of_knives, life_points, mana_points, damage_points, block_point)
+INSERT INTO rogue (name, argent, tête, torse, mains, jambes, pieds, dodge, execute, fan_of_knives, life_points, mana_points, damage_points, block_points, spell_damage)
  VALUES
- (?, "500", ?, ?, ?, ?, "300", "750", "250", "625", "525", "225", "125", "50");
+ (?, "500", ?, ?, ?, ?, "300", "750", "250", "625", "525", "225", "125", "50", "0");
 
 
 --   ::: SHOP :::
