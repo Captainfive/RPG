@@ -10,10 +10,8 @@ const sqlite = require("sqlite");
 
 // ROOT-PATH
 const ROOT_DIR = join(__dirname, "..");
-
 // QUESTIONS SHORTCUT
 const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
-
 // DATABASES SHORTCUT
 const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 
@@ -21,181 +19,229 @@ const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
 const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
 
-async function main() {
+/**
+ * @async
+ * @function
+ * @returns {Promise<void>}
+ */
+async function rpg() {
+    // CONSTANTS SCOPE AASYNC FUNCTION RPG
     const db = await sqlite.open(join(SHORTCUT_DATABASES, "config.sqlite"));
     const sql = await readFile(join(SHORTCUT_DATABASES, "config.sql"), { encoding: "utf8" });
 
-    const response = await inquirer.prompt([START_QUESTION.starter]);
+    // FIRST QUESTION
+    const first_start = await inquirer.prompt([START_QUESTION.menu_starter]);
     console.clear();
 
-    if (response.starter === "Nouvelle partie") {
+    // START NEW GAME
+    if (first_start.menu_starter === "Nouvelle partie") {
         await db.exec(sql);
 
+        boucle1:
         for (; ;) {
             const user_answer = await inquirer.prompt([START_QUESTION.select_class]);
             console.clear();
 
-            if (user_answer.select_class === "WARRIOR") {
-                const user_answer = await inquirer.prompt([START_QUESTION.stats_class]);
-                console.clear();
-
-                if (user_answer.stats_class === "Statistiques") {
-                    const stats = await db.get("SELECT DISTINCT life_points, mana_points, damage_points, block_points  FROM warrior");
-                    console.log(stats);
-
-                    const response = await inquirer.prompt([START_QUESTION.return]);
+            for (; ;) {
+                // IF PLAYER CHOOSE WARRIOR
+                if (user_answer.select_class === "WARRIOR") {
+                    const user_answer = await inquirer.prompt([START_QUESTION.stats_class]);
                     console.clear();
 
-                    if (response.return === "Retour") {
-                        continue;
-                    }
-                };
+                    // IF PLAYER CHOOSE STATISTIQUES
+                    if (user_answer.stats_class === "Statistiques") {
+                        const stats = await db.get("SELECT DISTINCT life_points, mana_points, damage_points, block_points  FROM warrior");
+                        console.log(stats);
 
-                if (user_answer.stats_class === "Sorts") {
-                    const sorts = await db.get("SELECT DISTINCT heal, iron_fist, dash FROM warrior");
-                    console.log(sorts);
+                        const response = await inquirer.prompt([START_QUESTION.return]);
+                        console.clear();
 
-                    const response = await inquirer.prompt([START_QUESTION.return]);
-                    console.clear();
+                        if (response.return === "Retour") {
+                            continue;
+                        }
+                    };
 
-                    if (response.return === "Retour") {
-                        continue;
-                    }
-                };
+                    // IF PLAYER CHOOSE SORTS
+                    if (user_answer.stats_class === "Sorts") {
+                        const sorts = await db.get("SELECT DISTINCT heal, iron_fist, dash FROM warrior");
+                        console.log(sorts);
 
-                if (user_answer.stats_class === "Choisir ce héro") {
-                    await db.exec(`INSERT INTO "actual_gaming_class"
+                        const response = await inquirer.prompt([START_QUESTION.return]);
+                        console.clear();
+
+                        if (response.return === "Retour") {
+                            continue;
+                        }
+                    };
+
+                    // IF PLAYER SELECT FINALLY THE HERO 
+                    if (user_answer.stats_class === "Choisir ce héro") {
+                        await db.exec(`INSERT INTO "actual_gaming_class"
                     ("class_name")
                     VALUES
                     ("warrior");
                     `);
+                        break boucle1;
+                    };
+
+
+                    // IF PLAYER CHOOSE RETURN
+                    if (user_answer.stats_class === "Retour") {
+                        continue boucle1;
+                    };
                     break;
-                };
-
-
-                if (user_answer.stats_class === "Retour") {
-                    continue;
                 };
                 break;
             };
-            
-            if (user_answer.select_class === "ROGUE") {
-                const user_answer = await inquirer.prompt([START_QUESTION.stats_class]);
-                console.clear();
 
-                if (user_answer.stats_class === "Statistiques") {
-                    const stats = await db.get("SELECT DISTINCT life_points, mana_points, damage_points, block_points FROM rogue");
-                    console.log(stats);
-
-                    const response = await inquirer.prompt([START_QUESTION.return]);
+                for (; ;) {
+                // IF PLAYER CHOOSE ROGUE
+                if (user_answer.select_class === "ROGUE") {
+                    const user_answer = await inquirer.prompt([START_QUESTION.stats_class]);
                     console.clear();
 
-                    if (response.return === "Retour") {
-                        continue;
-                    }
-                };
+                    // IF PLAYER CHOOSE STATS
+                    if (user_answer.stats_class === "Statistiques") {
+                        const stats = await db.get("SELECT DISTINCT life_points, mana_points, damage_points, block_points FROM rogue");
+                        console.log(stats);
 
-                if (user_answer.stats_class === "Sorts") {
-                    const sorts = await db.get("SELECT DISTINCT dodge, execute, fan_of_knives FROM rogue");
-                    console.log(sorts);
+                        const response = await inquirer.prompt([START_QUESTION.return]);
+                        console.clear();
 
-                    const response = await inquirer.prompt([START_QUESTION.return]);
-                    console.clear();
+                        if (response.return === "Retour") {
+                            continue;
+                        }
+                    };
 
-                    if (response.return === "Retour") {
-                        continue;
-                    }
-                };
+                    // IF PLAYER CHOOSE SPELLS
+                    if (user_answer.stats_class === "Sorts") {
+                        const sorts = await db.get("SELECT DISTINCT dodge, execute, fan_of_knives FROM rogue");
+                        console.log(sorts);
 
-                if (user_answer.stats_class === "Choisir ce héro") {
-                    await db.exec(`INSERT INTO "actual_gaming_class"
+                        const response = await inquirer.prompt([START_QUESTION.return]);
+                        console.clear();
+
+                        if (response.return === "Retour") {
+                            continue;
+                        }
+                    };
+
+                    // IF PLAYER CHOOSE FINALLY THE HERO
+                    if (user_answer.stats_class === "Choisir ce héro") {
+                        await db.exec(`INSERT INTO "actual_gaming_class"
                     ("class_name")
                     VALUES
                     ("rogue");
                     `);
+                        break boucle1;
+                    };
+
+
+                    // IF PLAYER CHOOSE RETURN
+                    if (user_answer.stats_class === "Retour") {
+                        continue boucle1;
+                    };
                     break;
-                };
-
-
-                if (user_answer.stats_class === "Retour") {
-                    continue;
                 };
                 break;
             };
-            
-            if (user_answer.select_class === "WIZARD") {
-                const user_answer = await inquirer.prompt([START_QUESTION.stats_class]);
-                console.clear();
 
-                if (user_answer.stats_class === "Statistiques") {
-                    const stats = await db.get("SELECT DISTINCT life_points, mana_points, damage_points, block_points, spell_damage FROM wizard");
-                    console.log(stats);
-
-                    const response = await inquirer.prompt([START_QUESTION.return]);
+                for (; ;) {
+                // IF PLAYER CHOOSE WIZARD
+                if (user_answer.select_class === "WIZARD") {
+                    const user_answer = await inquirer.prompt([START_QUESTION.stats_class]);
                     console.clear();
 
-                    if (response.return === "Retour") {
-                        continue;
-                    }
-                };
+                    // IF PLAYER CHOOSE STATS
+                    if (user_answer.stats_class === "Statistiques") {
+                        const stats = await db.get("SELECT DISTINCT life_points, mana_points, damage_points, block_points, spell_damage FROM wizard");
+                        console.log(stats);
 
-                if (user_answer.stats_class === "Sorts") {
-                    const sorts = await db.get("SELECT DISTINCT barrier, frostlin, floor_is_lava FROM wizard");
-                    console.log(sorts);
+                        const response = await inquirer.prompt([START_QUESTION.return]);
+                        console.clear();
 
-                    const response = await inquirer.prompt([START_QUESTION.return]);
-                    console.clear();
+                        if (response.return === "Retour") {
+                            continue;
+                        }
+                    };
 
-                    if (response.return === "Retour") {
-                        continue;
-                    }
-                };
+                    // IF PLAYER CHOOSE SPELLS
+                    if (user_answer.stats_class === "Sorts") {
+                        const sorts = await db.get("SELECT DISTINCT barrier, frostlin, floor_is_lava FROM wizard");
+                        console.log(sorts);
 
-                if (user_answer.stats_class === "Choisir ce héro") {
-                    await db.exec(`INSERT INTO "actual_gaming_class"
+                        const response = await inquirer.prompt([START_QUESTION.return]);
+                        console.clear();
+
+                        if (response.return === "Retour") {
+                            continue;
+                        }
+                    };
+
+                    // IF PLAYER CHOOSE FINALLY THE HERO
+                    if (user_answer.stats_class === "Choisir ce héro") {
+                        await db.exec(`INSERT INTO "actual_gaming_class"
                     ("class_name")
                     VALUES
                     ("wizard");
                     `);
+                        break boucle1;
+                    };
+
+                    // IF PLAYER CHOOSE RETURN
+                    if (user_answer.stats_class === "Retour") {
+                        continue boucle1;
+                    };
                     break;
-                };
-
-
-                if (user_answer.stats_class === "Retour") {
-                    continue;
                 };
                 break;
             };
         };
 
-        const response = await inquirer.prompt([START_QUESTION.nom_partie]);
-        console.clear();
+        // NAME YOUR PARTY
+        for (; ;) {
+            console.log("Vous devez nommez votre partie");
 
-        await db.exec(`INSERT INTO "world_name"
+            const response = await inquirer.prompt([START_QUESTION.nom_partie]);
+            console.clear();
+
+            // IF NAME IS NULL
+            if (response.nom_partie === "") {
+                continue;
+            }
+            else {
+                // WRITE THE NAME OF THE ACTUAL GAME ON THE DATABASE
+                await db.exec(`INSERT INTO "world_name"
                 ("name")
                 VALUES
                 ("${response.nom_partie}");`);
+                break;
+            };
+        };
     };
 
-    if (response.starter === "Charger partie") {
-        console.clear();
-        console.log("\n");
-        console.log("quelle partie voulez vous chargez ?");
-    }
 
-    if (response.starter === "Quitter") {
+    // LOAD A GAME
+    if (first_start.menu_starter === "Charger partie") {
+        console.clear();
+        return;
+    }
+    // QUIT THE GAME
+    if (first_start.menu_starter === "Quitter") {
         return;
     }
 
+    // Main Menu
     for (; ;) {
-
         const answer = await inquirer.prompt([MENU.menu]);
         console.clear();
 
+        // IF PLAYER CHOOSE CHARACTER
         if (answer.menu === "personnages") {
             const response = await inquirer.prompt([MENU.personnage]);
             console.clear();
 
+            // IF PLAYER CHOOSE STATS
             if (response.personnage === "Stats") {
                 const actual_class = await db.get(`SELECT DISTINCT class_name FROM actual_gaming_class`);
                 const stats = await db.get(`SELECT DISTINCT life_points, mana_points, damage_points, block_points, spell_damage FROM ${actual_class.class_name}`);
@@ -209,30 +255,37 @@ async function main() {
                 }
             };
 
+            // IF PLAYER CHOOSE SPELLS
             if (response.personnages === "Sorts") {
                 console.log("sorts");
             };
 
+            // IF PLAYER CHOOSE RETURN
             if (response.personnages === "retour") {
                 continue;
             };
         };
 
+        // IF PLAYER CHOOSE INVENTORY
         if (answer.menu === "inventaire") {
 
         };
 
+        // IF PLAYER CHOOSE SHOP
         if (answer.menu === "shop") {
 
         };
 
+        // IF PLAYER CHOOSE OPTION
         if (answer.menu === "option") {
             const response = await inquirer.prompt([MENU.options]);
             console.clear();
 
+            // IF PLAYER CHOOSE SAVE
             if (response.options === "Sauvegarder") {
             };
 
+            // IF PLAYER CHOOSE QUIT
             if (response.options === "Quitter") {
                 const reponse = await inquirer.prompt([MENU.quit]);
                 console.clear();
@@ -249,4 +302,5 @@ async function main() {
             };
         };
     }
-} main().catch(console.error);
+}
+rpg().catch(console.error);

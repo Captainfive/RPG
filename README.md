@@ -15,4 +15,3 @@ $ yarn add @Captainfive/RPG
 
 ## LICENSE
 Nothing from now
-
