@@ -1,8 +1,8 @@
 {
-    "starter": {
+    "menu_starter": {
         "message": "Bienvenue dans mon rpg \n",
         "type": "list",
-        "name": "starter",
+        "name": "menu_starter",
         "choices": [
             "Nouvelle partie",
             "Charger partie",
@@ -10,7 +10,7 @@
         ]
     },
     "select_class": {
-        "message": "Selectionne une classe",
+        "message": "Selectionne une classe \n",
         "type": "list",
         "name": "select_class",
         "choices": [
@@ -20,6 +20,7 @@
         ]
     },
     "stats_class": {
+        "message": "Qu'essaies tu de faire ? \n",
         "type": "list",
         "name": "stats_class",
         "choices": [
