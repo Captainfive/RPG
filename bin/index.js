@@ -212,6 +212,7 @@ async function rpg() {
             }
             else {
                 // WRITE THE NAME OF THE ACTUAL GAME ON THE DATABASE
+
                 await db.exec(`INSERT INTO "world_name"
                 ("name")
                 VALUES
@@ -229,6 +230,8 @@ async function rpg() {
     }
     // QUIT THE GAME
     if (first_start.menu_starter === "Quitter") {
+
+        // CLOSING AND DELETING "CONFIG.SQLITE"
         await db.close();
         await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
         return;
@@ -299,6 +302,7 @@ async function rpg() {
                 const reponse = await inquirer.prompt([MENU.quit]);
                 console.clear();
 
+                // CLOSING AND DELETING "CONFIG.SQLITE"
                 if (reponse.quit === true) {
                     await db.close();
                     await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
