@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Require Node.js Dependencies
-const { readFile } = require("fs").promises;
+const { readFile, unlink } = require("fs").promises;
 const { join } = require("path");
 
 // Require Third-party Dependencies
@@ -229,6 +229,8 @@ async function rpg() {
     }
     // QUIT THE GAME
     if (first_start.menu_starter === "Quitter") {
+        await db.close();
+        await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
         return;
     }
 
@@ -284,9 +286,9 @@ async function rpg() {
 
             // IF PLAYER CHOOSE SAVE
             if (response.options === "Sauvegarder") {
-                const config = join(SHORTCUT_DATABASES, "config.sql");
-                const name = await db.get(`SELECT DISTINCT name FROM world_name`);
-                const path = join(ROOT_DIR, "databases", "game_saved", `${name.name}.sql`);
+                const config = join(SHORTCUT_DATABASES, "config.sqlite");
+                const world_name = await db.get(`SELECT DISTINCT name FROM world_name`);
+                const path = join(ROOT_DIR, "databases", "game_saved", `${world_name.name}.sqlite`);
 
                 await SAVE(config, path);
                 continue;
@@ -298,6 +300,8 @@ async function rpg() {
                 console.clear();
 
                 if (reponse.quit === true) {
+                    await db.close();
+                    await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
                     break;
                 }
                 else {
