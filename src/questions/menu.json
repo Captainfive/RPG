@@ -23,6 +23,7 @@
         "name": "return_menu"
     },
     "personnage": {
+        "message": "je n'arrive jamais a me décider !\n",
         "type": "list",
         "name": "personnage",
         "choices": [
