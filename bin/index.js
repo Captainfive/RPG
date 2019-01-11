@@ -18,6 +18,7 @@ const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 // CONSTANTS
 const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
 const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
+const SAVE = require(join(ROOT_DIR, "scripts", "save.js"));
 
 /**
  * @async
