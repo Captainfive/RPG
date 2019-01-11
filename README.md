@@ -17,6 +17,8 @@ MIT
 
 ## In the first place
 
+- Changer les sorts dans la base de donnée pour wizard et rogue
+- Changer l'affichage des sorts dans index.js
 - Charger les parties
 - Remplir le shop
 - Afficher les sorts du joueur
