@@ -64,8 +64,9 @@ async function rpg() {
 
                     // IF PLAYER CHOOSE SORTS
                     if (user_answer.stats_class === "Sorts") {
-                        const sorts = await db.get("SELECT DISTINCT heal, iron_fist, dash FROM warrior");
-                        console.log(sorts);
+                        const sorts = await db.all("SELECT DISTINCT name, effet FROM warrior_spells");
+                        const spells = sorts.map(row => `${row.name} : ${row.effet}`);
+                        console.log(spells);
 
                         const response = await inquirer.prompt([START_QUESTION.return]);
                         console.clear();
@@ -217,6 +218,12 @@ async function rpg() {
                 ("name")
                 VALUES
                 ("${response.nom_partie}");`);
+
+                const config = join(SHORTCUT_DATABASES, "config.sqlite");
+                const world_name = await db.get(`SELECT DISTINCT name FROM world_name`);
+                const path = join(ROOT_DIR, "databases", "game_saved", `${world_name.name}.sqlite`);
+
+                await SAVE(config, path);
                 break;
             };
         };
@@ -239,6 +246,9 @@ async function rpg() {
 
     // Main Menu
     for (; ;) {
+        const actual_class = await db.get(`SELECT DISTINCT class_name FROM actual_gaming_class`);
+        const CHARACTER = actual_class.class_name
+
         const answer = await inquirer.prompt([MENU.menu]);
         console.clear();
 
@@ -249,8 +259,7 @@ async function rpg() {
 
             // IF PLAYER CHOOSE STATS
             if (response.personnage === "Stats") {
-                const actual_class = await db.get(`SELECT DISTINCT class_name FROM actual_gaming_class`);
-                const stats = await db.get(`SELECT DISTINCT life_points, mana_points, damage_points, block_points, spell_damage FROM ${actual_class.class_name}`);
+                const stats = await db.get(`SELECT DISTINCT life_points, mana_points, damage_points, block_points, spell_damage FROM ${CHARACTER}`);
                 console.log(stats);
 
                 const response = await inquirer.prompt([START_QUESTION.return]);
@@ -262,8 +271,17 @@ async function rpg() {
             };
 
             // IF PLAYER CHOOSE SPELLS
-            if (response.personnages === "Sorts") {
-                console.log("sorts");
+            if (response.personnage === "Sorts") {
+                const sorts = await db.all(`SELECT DISTINCT name, effet FROM ${CHARACTER}_spells`);
+                const spells = sorts.map(row => `${row.name} : ${row.effet}`);
+                console.log(spells);
+                
+                const response = await inquirer.prompt([START_QUESTION.return]);
+                console.clear();
+
+                if (response.return === "Retour") {
+                    continue;
+                }
             };
 
             // IF PLAYER CHOOSE RETURN
