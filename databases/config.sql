@@ -21,9 +21,6 @@ CREATE TABLE IF NOT EXISTS "warrior" (
     "mains" VARCHAR(40),
     "jambes" VARCHAR(40),
     "pieds" VARCHAR(40),
-    "heal" INTEGER NOT NULL,
-    "iron_fist" INTEGER NOT NULL,
-    "dash" INTEGER NOT NULL,
     "life_points" INTEGER NOT NULL,
     "mana_points" INTEGER NOT NULL,
     "damage_points" INTEGER NOT NULL,
@@ -32,9 +29,24 @@ CREATE TABLE IF NOT EXISTS "warrior" (
 );
 
     -- pushing in warrior table
-INSERT INTO warrior (name, argent, tête, torse, mains, jambes, pieds, heal, iron_fist, dash, life_points, mana_points, damage_points, block_points, spell_damage)
+INSERT INTO warrior (name, argent, tête, torse, mains, jambes, pieds, life_points, mana_points, damage_points, block_points, spell_damage)
  VALUES
- (?, "500", ?, ?, ?, ?, ?, "120", "350", "180", "750", "350", "120", "180", "0");
+ (?, "500", ?, ?, ?, ?, ?, "750", "350", "120", "180", "0");
+
+    -- adding warrior_spells table
+ CREATE TABLE IF NOT EXISTS "warrior_spells" (
+    "id" INTEGER PRIMARY KEY NOT NULL,
+    "name" VARCHAR(30),
+    "effet" INTEGER NOT NULL
+ );
+
+    -- pushing in warrior_spells table
+INSERT INTO warrior_spells (name, effet)
+ VALUES
+ ("heal", "120"),
+ ("iron_fist", "350"),
+ ("dash", "180");
+
 
 -- WIZARD !
 
