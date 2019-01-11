@@ -17,6 +17,7 @@ MIT
 
 ## In the first place
 
+- Supprimer le fichier config.sqlite avant de quitter le jeux
 - Charger les parties
 - Remplir le shop
 - Afficher les sorts du joueur
