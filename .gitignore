@@ -3,3 +3,6 @@ node_modules/
 
 # SQLITE database
 databases/config.sqlite
+
+# Save folder
+databases/game_saved
