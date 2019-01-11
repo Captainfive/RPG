@@ -1,9 +1,8 @@
-module.exports = async function SAVE(data, name) {
-    const { readFile, writeFile } = require("fs").promises;
+const { readFile, writeFile } = require("fs").promises;
 
-    await readFile(data, (err, data) => {
-        if (err) throw err;
-        writeFile(data, name, "utf8");
-    });
+async function SAVE(data, path) {
+    const buf = await readFile(data);
+    writeFile(path, buf);
 }
-SAVE().catch(console.error);
+
+module.exports = { SAVE };
