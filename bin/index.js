@@ -18,7 +18,7 @@ const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 // CONSTANTS
 const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
 const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
-const SAVE = require(join(ROOT_DIR, "scripts", "save.js"));
+const { SAVE } = require(join(ROOT_DIR, "scripts", "save.js"));
 
 /**
  * @async
@@ -284,6 +284,12 @@ async function rpg() {
 
             // IF PLAYER CHOOSE SAVE
             if (response.options === "Sauvegarder") {
+                const config = join(SHORTCUT_DATABASES, "config.sql");
+                const name = await db.get(`SELECT DISTINCT name FROM world_name`);
+                const path = join(ROOT_DIR, "databases", "game_saved", `${name.name}.sql`);
+
+                await SAVE(config, path);
+                continue;
             };
 
             // IF PLAYER CHOOSE QUIT
