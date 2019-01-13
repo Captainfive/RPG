@@ -10,16 +10,12 @@ $ npm i @Captainfive/RPG
 $ yarn add @Captainfive/RPG
 ```
 
-## LICENSE
-MIT
-
 # To do :
 
 ## In the first place
 
-- Changer les sorts dans la base de donnée pour wizard et rogue
+- Améliorer les sorts dans la base de donnée pour wizard et rogue
 - Changer l'affichage des sorts dans index.js
-- Charger les parties
 - Remplir le shop
 - Afficher les sorts du joueur
 - afficher l'inventaire du joueur
@@ -33,3 +29,13 @@ MIT
 - Ajouter un systéme d'expérience, gains de niveaux/points de compétences
 - ...
 
+# Usage example
+
+The package will install globally the command "imworking.cmd".
+Just run this command with no arguments and it will launch the game.
+
+Note: if you'r working on the project itself, run npm link at the root of the project to get the global command.
+
+
+## LICENSE
+MIT
