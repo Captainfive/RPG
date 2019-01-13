@@ -1,6 +1,6 @@
 {
     "menu": {
-        "message": "Menu Principal",
+        "message": "Menu Principal \n",
         "type": "list",
         "name": "menu",
         "choices": [
