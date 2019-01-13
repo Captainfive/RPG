@@ -1,17 +1,19 @@
 const { join } = require("path");
 const ROOT_DIR = join(__dirname, "..");
 const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
+const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
 const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
-const { readFile, unlink, writeFile } = require("fs").promises;
+const { readFile, unlink, writeFile, readdir } = require("fs").promises;
 const inquirer = require("inquirer");
 const sqlite = require("sqlite");
 const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 
 async function MAIN_MENU(GAME_DB) {
-    const db = await sqlite.open(GAME_DB);
+    console.clear();
     // Main Menu
     boucle1:
     for (; ;) {
+        const db = await sqlite.open(GAME_DB);
         const actual_class = await db.get(`SELECT DISTINCT class_name FROM actual_gaming_class`);
         const CHARACTER = actual_class.class_name
 
@@ -78,6 +80,7 @@ async function MAIN_MENU(GAME_DB) {
 
                 const buf = await readFile(GAME_DB);
                 writeFile(path, buf);
+                await db.close()
                 continue boucle1;
             };
 
@@ -88,9 +91,13 @@ async function MAIN_MENU(GAME_DB) {
 
                 // CLOSING AND DELETING "CONFIG.SQLITE"
                 if (reponse.quit === true) {
+                    const GAME_SAVED = await readdir(join(SHORTCUT_DATABASES));
+                    if (GAME_SAVED[2] === "config.sqlite") {
+                        await db.close();
+                        await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
+                    };
                     await db.close();
-                    await unlink(GAME_DB);
-                    break;
+                    return;
                 }
                 else {
                     continue boucle1;
