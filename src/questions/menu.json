@@ -43,7 +43,7 @@
         ]
     },
     "quit": {
-        "message": "Voulez vous quittez",
+        "message": "Pensez a sauvegarder avant de partir,\n voulez vous quittez le jeu ?",
         "type": "confirm",
         "name": "quit"
     }
