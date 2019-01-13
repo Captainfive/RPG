@@ -26,10 +26,12 @@ const { MAIN_MENU } = require(join(ROOT_DIR, "scripts", "Main_menu.js"));
  * @returns {Promise<void>}
  */
 async function rpg() {
+    // DATABASES FILES
     const GAME_SAVED = await readdir(FOLDER);
 
     boucle1:
     for (; ;) {
+        // INITIALIZATION OF THE BASIC CONFIGURATION
         const db = await sqlite.open(join(SHORTCUT_DATABASES, "config.sqlite"));
         // FIRST QUESTION
         const first_start = await inquirer.prompt([START_QUESTION.menu_starter]);
@@ -68,6 +70,8 @@ async function rpg() {
 
                         // IF PLAYER CHOOSE SORTS
                         if (user_answer.stats_class === "Sorts") {
+
+                            // SQL REQUEST TO PRINT ALL SPELLS
                             const sorts = await db.all("SELECT DISTINCT name, effet FROM warrior_spells");
                             const spells = sorts.map(row => `${row.name} : ${row.effet}`);
                             console.log(spells);
@@ -206,7 +210,7 @@ async function rpg() {
 
             // NAME YOUR PARTY
             for (; ;) {
-                console.log("Vous devez nommez votre partie");
+                console.log("Vous devez nommez votre partie \n");
 
                 const response = await inquirer.prompt([START_QUESTION.nom_partie]);
                 console.clear();
@@ -232,6 +236,7 @@ async function rpg() {
         if (first_start.menu_starter === "Charger partie") {
             console.clear();
 
+            // SHOW GAMES TO PLAYER
             const loader = await inquirer.prompt({
                 message: "Parties Sauvegardées \n",
                 type: "list",
@@ -239,8 +244,11 @@ async function rpg() {
                 choices: GAME_SAVED
             });
 
+            // CLOSE AND DELETE CONFIG.SQLITE
             await db.close();
             await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
+
+            // LAUNCHING THE GAME MENU
             await MAIN_MENU(join(SHORTCUT_DATABASES, "game_saved", `${loader.saved_game}`));
             return;
         };
@@ -254,6 +262,7 @@ async function rpg() {
         }
         break boucle1;
     };
+        // LAUNCHING THE GAME MENU
     MAIN_MENU(join(SHORTCUT_DATABASES, "config.sqlite"));
 }
 rpg().catch(console.error);
