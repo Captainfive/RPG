@@ -1,13 +1,27 @@
-const { join } = require("path");
-const ROOT_DIR = join(__dirname, "..");
-const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
-const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
-const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
+// Require Node.js Dependencies
 const { readFile, unlink, writeFile, readdir } = require("fs").promises;
+const { join } = require("path");
+
+// Require Third-party Dependencies
 const inquirer = require("inquirer");
 const sqlite = require("sqlite");
+
+// ROOT-PATH
+const ROOT_DIR = join(__dirname, "..");
+// QUESTIONS SHORTCUT
+const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
+// DATABASES SHORTCUT
 const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
 
+// CONSTANTS
+const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
+const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
+
+/**
+ * @async
+ * @function
+ * @returns {Promise<void>}
+ */
 async function MAIN_MENU(GAME_DB) {
     console.clear();
     // Main Menu
@@ -92,16 +106,15 @@ async function MAIN_MENU(GAME_DB) {
                 // CLOSING AND DELETING "CONFIG.SQLITE"
                 if (reponse.quit === true) {
                     const GAME_SAVED = await readdir(join(SHORTCUT_DATABASES));
-                    if (GAME_SAVED[2] === "config.sqlite") {
+
+                    if (GAME_SAVED[1] === "config.sqlite") {
                         await db.close();
                         await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
                     };
-                    await db.close();
+
                     return;
-                }
-                else {
-                    continue boucle1;
-                }
+                }                    
+                continue boucle1;
             };
 
             if (response.options === "Retour") {
