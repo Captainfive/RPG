@@ -1,6 +1,6 @@
 {
     "menu_starter": {
-        "message": "Bienvenue dans mon rpg \n",
+        "message": "Bienvenue dans mon RPG \n",
         "type": "list",
         "name": "menu_starter",
         "choices": [
@@ -20,7 +20,7 @@
         ]
     },
     "stats_class": {
-        "message": "Qu'essaies tu de faire ? \n",
+        "message": "Avant de sélectionner définitivement une classe tu peux regarder leurs caractéristiques \n",
         "type": "list",
         "name": "stats_class",
         "choices": [
@@ -39,7 +39,7 @@
         ]
     },
     "nom_partie": {
-        "message": "Nomme ta partie",
+        "message": "Nomme ta partie \n",
         "type": "input",
         "name": "nom_partie"
     }
