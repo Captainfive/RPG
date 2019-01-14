@@ -104,17 +104,13 @@ async function MAIN_MENU(GAME_DB) {
                 console.clear();
 
                 // CLOSING AND DELETING "CONFIG.SQLITE"
-                if (reponse.quit === true) {
-                    const GAME_SAVED = await readdir(join(SHORTCUT_DATABASES));
+                    const CONFIG = await readdir(join(SHORTCUT_DATABASES));
 
-                    if (GAME_SAVED[1] === "config.sqlite") {
+                    if (CONFIG[1] === "config.sqlite") {
                         await db.close();
                         await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
                     };
-
                     return;
-                }                    
-                continue boucle1;
             };
 
             if (response.options === "Retour") {
