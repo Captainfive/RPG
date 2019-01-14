@@ -100,9 +100,6 @@ async function MAIN_MENU(GAME_DB) {
 
             // IF PLAYER CHOOSE QUIT
             if (response.options === "Quitter") {
-                const reponse = await inquirer.prompt([MENU.quit]);
-                console.clear();
-
                 // CLOSING AND DELETING "CONFIG.SQLITE"
                     const CONFIG = await readdir(join(SHORTCUT_DATABASES));
 
@@ -114,6 +111,7 @@ async function MAIN_MENU(GAME_DB) {
             };
 
             if (response.options === "Retour") {
+                continue;
             };
         };
     }
