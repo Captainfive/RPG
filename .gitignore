@@ -1,7 +1,7 @@
 # Dependency directories
 node_modules/
 
-# SQLITE database
+# Initial config
 databases/config.sqlite
 
 # Save folder
