@@ -19,7 +19,9 @@ const MENU = require(join(SHORTCUT_QUESTIONS, "menu.json"));
 
 /**
  * @async
- * @function
+ * @function MAIN_MENU
+ * @description Start in the main menu and play the game !
+ * @param {path} GAME_DB
  * @returns {Promise<void>}
  */
 async function MAIN_MENU(GAME_DB) {

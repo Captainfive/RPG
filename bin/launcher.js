@@ -22,7 +22,8 @@ const { MAIN_MENU } = require(join(ROOT_DIR, "scripts", "Main_menu.js"));
 
 /**
  * @async
- * @function
+ * @function LAUNCHER
+ * @description Start, load a game or quit the game
  * @returns {Promise<void>}
  */
 async function LAUNCHER() {
