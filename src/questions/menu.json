@@ -11,6 +11,7 @@
         ]
     },
     "menu_return": {
+        "message": "\n",
         "type": "list",
         "name": "menu_return",
         "choices": [
@@ -18,12 +19,12 @@
         ]
     },
     "return_menu": {
-        "message": "Voulez vous revenir au Menu Principal ?",
+        "message": "Voulez-vous revenir au menu principal ?",
         "type": "confirm",
         "name": "return_menu"
     },
     "personnage": {
-        "message": "je n'arrive jamais a me décider !\n",
+        "message": "Sélectionne les caractéristiques qui t'intéressent ! \n",
         "type": "list",
         "name": "personnage",
         "choices": [
@@ -33,7 +34,7 @@
         ]
     },
     "options": {
-        "message": "options : \n",
+        "message": "Options : \n",
         "type": "list",
         "name": "options",
         "choices": [
@@ -41,10 +42,5 @@
             "Quitter",
             "Retour"
         ]
-    },
-    "quit": {
-        "message": "Pensez a sauvegarder avant de partir,\n voulez vous quittez le jeu ?",
-        "type": "confirm",
-        "name": "quit"
     }
 }
