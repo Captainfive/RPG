@@ -14,10 +14,11 @@ const ROOT_DIR = join(__dirname, "..");
 const SHORTCUT_QUESTIONS = join(ROOT_DIR, "src", "questions");
 // DATABASES SHORTCUT
 const SHORTCUT_DATABASES = join(ROOT_DIR, "databases");
+// SAVED_GAMES SHORTCUT
+const FOLDER = join(ROOT_DIR, "databases", "game_saved");
 
 // CONSTANTS
 const START_QUESTION = require(join(SHORTCUT_QUESTIONS, "starter.json"));
-const FOLDER = join(ROOT_DIR, "databases", "game_saved");
 const { MAIN_MENU } = require(join(ROOT_DIR, "scripts", "Main_menu.js"));
 
 /**
@@ -235,7 +236,10 @@ async function LAUNCHER() {
 
         // LOAD A GAME
         if (first_start.menu_starter === "Charger partie") {
-            console.clear();
+            console.log(GAME_SAVED.length);
+            if (GAME_SAVED.length === 0 ) {
+                continue boucle1;
+            };
 
             // SHOW GAMES TO PLAYER
             const loader = await inquirer.prompt({
@@ -244,13 +248,14 @@ async function LAUNCHER() {
                 name: "saved_game",
                 choices: GAME_SAVED
             });
+            console.clear();
 
             // CLOSE AND DELETE CONFIG.SQLITE
             await db.close();
             await unlink(join(SHORTCUT_DATABASES, "config.sqlite"));
 
             // LAUNCHING THE GAME MENU
-            await MAIN_MENU(join(SHORTCUT_DATABASES, "game_saved", `${loader.saved_game}`));
+            await MAIN_MENU(join(FOLDER, `${loader.saved_game}`));
             return;
         };
         // QUIT THE GAME
