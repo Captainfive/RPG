@@ -2,9 +2,9 @@
   "name": "imworking",
   "version": "0.1.0",
   "description": "Ceci est un projet trés sérieux",
-  "main": "./bin/index.js",
+  "main": "./bin/launcher.js",
   "bin": {
-    "imworking": "./bin/index.js"
+    "imworking": "./bin/launcher.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
