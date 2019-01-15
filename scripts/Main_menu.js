@@ -76,7 +76,16 @@ async function MAIN_MENU(GAME_DB) {
 
         // IF PLAYER CHOOSE INVENTORY
         if (answer.menu === "inventaire") {
+            const stuff = await db.all(`SELECT DISTINCT name, life, damage, spell_damage FROM weapons`);
+            const print_stuff = stuff.map(row => `${row.name} + ${row.life} heal points, + ${row.damage} damages, + ${row.spell_damage} spell damage`);
+            console.log(print_stuff);
+            
+            const response = await inquirer.prompt([START_QUESTION.return]);
+            console.clear();
 
+            if (response.return === "Retour") {
+                continue boucle1;
+            }
         };
 
         // IF PLAYER CHOOSE SHOP

@@ -236,7 +236,6 @@ async function LAUNCHER() {
 
         // LOAD A GAME
         if (first_start.menu_starter === "Charger partie") {
-            console.log(GAME_SAVED.length);
             if (GAME_SAVED.length === 0 ) {
                 continue boucle1;
             };
